@@ -16,7 +16,8 @@ import {
   Dimensions,
 } from 'react-native';
 import BleManager from 'react-native-ble-manager';
-import Orientation from 'react-native-orientation';
+//import Orientation from 'react-native-orientation';
+import Orientation from 'react-native-orientation-locker';
 import Toast, {DURATION} from 'react-native-easy-toast'
 
 const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});

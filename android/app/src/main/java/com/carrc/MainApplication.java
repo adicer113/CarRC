@@ -3,7 +3,8 @@ package com.carrc;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
-import com.github.yamill.orientation.OrientationPackage;
+import org.wonday.orientation.OrientationPackage;
+import com.horcrux.svg.SvgPackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 import it.innove.BleManagerPackage;
 import com.sensors.RNSensorsPackage;
@@ -28,6 +29,7 @@ public class MainApplication extends Application implements ReactApplication {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
             new OrientationPackage(),
+            new SvgPackage(),
             new RNGestureHandlerPackage(),
             new BleManagerPackage(),
             new RNSensorsPackage()

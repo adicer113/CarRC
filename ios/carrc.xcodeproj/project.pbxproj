@@ -43,7 +43,10 @@
 		37CE6264AE844A8FACE075DA /* libBleManager.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 52EED77250F6433ABAA6E610 /* libBleManager.a */; };
 		BA18624D8C464AF285DE78FD /* libRNGestureHandler.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 289FBD4F607049538010FDD5 /* libRNGestureHandler.a */; };
 		C82E1961BC1840B492E35C83 /* libRNGestureHandler-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D48F3C7B540540838111F496 /* libRNGestureHandler-tvOS.a */; };
-		C8401DF4AF9346E495CD4D1C /* libRCTOrientation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DF4E1317EE9344E8ACAB9146 /* libRCTOrientation.a */; };
+		B1F04E71A65B4424B221516C /* libRNSVG.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B2832286CD3949D48052938F /* libRNSVG.a */; };
+		2EF865C3FEEC4658B0E4CFA6 /* libRNSVG-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F247012A38C24A9DAF06E083 /* libRNSVG-tvOS.a */; };
+		F6035222AB1C4B7A94F721DF /* libRCTOrientation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0762FEFF01FC4D0CB714F219 /* libRCTOrientation.a */; };
+		67D3AD98AC554CB2A6D49A9A /* libRCTOrientation-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 17C826D831AF40A296DCAE7F /* libRCTOrientation-tvOS.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -358,8 +361,12 @@
 		1616032C44E9456795399256 /* RNGestureHandler.xcodeproj */ = {isa = PBXFileReference; name = "RNGestureHandler.xcodeproj"; path = "../node_modules/react-native-gesture-handler/ios/RNGestureHandler.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		289FBD4F607049538010FDD5 /* libRNGestureHandler.a */ = {isa = PBXFileReference; name = "libRNGestureHandler.a"; path = "libRNGestureHandler.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 		D48F3C7B540540838111F496 /* libRNGestureHandler-tvOS.a */ = {isa = PBXFileReference; name = "libRNGestureHandler-tvOS.a"; path = "libRNGestureHandler-tvOS.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
-		5B6CE9304A7D449187009130 /* RCTOrientation.xcodeproj */ = {isa = PBXFileReference; name = "RCTOrientation.xcodeproj"; path = "../node_modules/react-native-orientation/iOS/RCTOrientation.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
-		DF4E1317EE9344E8ACAB9146 /* libRCTOrientation.a */ = {isa = PBXFileReference; name = "libRCTOrientation.a"; path = "libRCTOrientation.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		7828C9A55EFF4B09ADC5B32A /* RNSVG.xcodeproj */ = {isa = PBXFileReference; name = "RNSVG.xcodeproj"; path = "../node_modules/react-native-svg/ios/RNSVG.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		B2832286CD3949D48052938F /* libRNSVG.a */ = {isa = PBXFileReference; name = "libRNSVG.a"; path = "libRNSVG.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		F247012A38C24A9DAF06E083 /* libRNSVG-tvOS.a */ = {isa = PBXFileReference; name = "libRNSVG-tvOS.a"; path = "libRNSVG-tvOS.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		FFBDB7AB5D024C0787C7F2D6 /* RCTOrientation.xcodeproj */ = {isa = PBXFileReference; name = "RCTOrientation.xcodeproj"; path = "../node_modules/react-native-orientation-locker/iOS/RCTOrientation.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		0762FEFF01FC4D0CB714F219 /* libRCTOrientation.a */ = {isa = PBXFileReference; name = "libRCTOrientation.a"; path = "libRCTOrientation.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		17C826D831AF40A296DCAE7F /* libRCTOrientation-tvOS.a */ = {isa = PBXFileReference; name = "libRCTOrientation-tvOS.a"; path = "libRCTOrientation-tvOS.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -391,7 +398,9 @@
 				9001F05FE7604EFCBFF9C9D7 /* libRNSensors.a in Frameworks */,
 				37CE6264AE844A8FACE075DA /* libBleManager.a in Frameworks */,
 				BA18624D8C464AF285DE78FD /* libRNGestureHandler.a in Frameworks */,
-				C8401DF4AF9346E495CD4D1C /* libRCTOrientation.a in Frameworks */,
+				B1F04E71A65B4424B221516C /* libRNSVG.a in Frameworks */,
+				F6035222AB1C4B7A94F721DF /* libRCTOrientation.a in Frameworks */,
+				67D3AD98AC554CB2A6D49A9A /* libRCTOrientation-tvOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -409,6 +418,8 @@
 				2D02E4C71E0B4AEC006451C7 /* libRCTText-tvOS.a in Frameworks */,
 				2D02E4C81E0B4AEC006451C7 /* libRCTWebSocket-tvOS.a in Frameworks */,
 				C82E1961BC1840B492E35C83 /* libRNGestureHandler-tvOS.a in Frameworks */,
+				74789A65217546CDA7DB63E8 /* libRNSVG-tvOS.a in Frameworks */,
+				2EF865C3FEEC4658B0E4CFA6 /* libRNSVG-tvOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -585,7 +596,8 @@
 				3B6122EA4B474B71808B6B99 /* RNSensors.xcodeproj */,
 				29F61AF484A0446A9C501B95 /* BleManager.xcodeproj */,
 				1616032C44E9456795399256 /* RNGestureHandler.xcodeproj */,
-				5B6CE9304A7D449187009130 /* RCTOrientation.xcodeproj */,
+				7828C9A55EFF4B09ADC5B32A /* RNSVG.xcodeproj */,
+				FFBDB7AB5D024C0787C7F2D6 /* RCTOrientation.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -1215,16 +1227,14 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-sensors\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-ble-manager\ios",
 					"$(SRCROOT)\..\node_modules\react-native-gesture-handler\ios/**",
-					"$(SRCROOT)\..\node_modules\react-native-orientation\iOS\RCTOrientation/**",
+					"$(SRCROOT)\..\node_modules\react-native-svg\ios/**",
+					"$(SRCROOT)\..\node_modules\react-native-orientation-locker\iOS\RCTOrientation",
 				);
 			};
 			name = Debug;
@@ -1248,16 +1258,14 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-sensors\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-ble-manager\ios",
 					"$(SRCROOT)\..\node_modules\react-native-gesture-handler\ios/**",
-					"$(SRCROOT)\..\node_modules\react-native-orientation\iOS\RCTOrientation/**",
+					"$(SRCROOT)\..\node_modules\react-native-svg\ios/**",
+					"$(SRCROOT)\..\node_modules\react-native-orientation-locker\iOS\RCTOrientation",
 				);
 			};
 			name = Release;
@@ -1283,7 +1291,8 @@
 					"$(SRCROOT)\..\node_modules\react-native-sensors\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-ble-manager\ios",
 					"$(SRCROOT)\..\node_modules\react-native-gesture-handler\ios/**",
-					"$(SRCROOT)\..\node_modules\react-native-orientation\iOS\RCTOrientation/**",
+					"$(SRCROOT)\..\node_modules\react-native-svg\ios/**",
+					"$(SRCROOT)\..\node_modules\react-native-orientation-locker\iOS\RCTOrientation",
 				);
 			};
 			name = Debug;
@@ -1308,7 +1317,8 @@
 					"$(SRCROOT)\..\node_modules\react-native-sensors\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-ble-manager\ios",
 					"$(SRCROOT)\..\node_modules\react-native-gesture-handler\ios/**",
-					"$(SRCROOT)\..\node_modules\react-native-orientation\iOS\RCTOrientation/**",
+					"$(SRCROOT)\..\node_modules\react-native-svg\ios/**",
+					"$(SRCROOT)\..\node_modules\react-native-orientation-locker\iOS\RCTOrientation",
 				);
 			};
 			name = Release;
@@ -1340,16 +1350,14 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-sensors\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-ble-manager\ios",
 					"$(SRCROOT)\..\node_modules\react-native-gesture-handler\ios/**",
-					"$(SRCROOT)\..\node_modules\react-native-orientation\iOS\RCTOrientation/**",
+					"$(SRCROOT)\..\node_modules\react-native-svg\ios/**",
+					"$(SRCROOT)\..\node_modules\react-native-orientation-locker\iOS\RCTOrientation",
 				);
 			};
 			name = Debug;
@@ -1381,16 +1389,14 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-sensors\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-ble-manager\ios",
 					"$(SRCROOT)\..\node_modules\react-native-gesture-handler\ios/**",
-					"$(SRCROOT)\..\node_modules\react-native-orientation\iOS\RCTOrientation/**",
+					"$(SRCROOT)\..\node_modules\react-native-svg\ios/**",
+					"$(SRCROOT)\..\node_modules\react-native-orientation-locker\iOS\RCTOrientation",
 				);
 			};
 			name = Release;
@@ -1421,16 +1427,14 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-sensors\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-ble-manager\ios",
 					"$(SRCROOT)\..\node_modules\react-native-gesture-handler\ios/**",
-					"$(SRCROOT)\..\node_modules\react-native-orientation\iOS\RCTOrientation/**",
+					"$(SRCROOT)\..\node_modules\react-native-svg\ios/**",
+					"$(SRCROOT)\..\node_modules\react-native-orientation-locker\iOS\RCTOrientation",
 				);
 			};
 			name = Debug;
@@ -1461,16 +1465,14 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-sensors\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-ble-manager\ios",
 					"$(SRCROOT)\..\node_modules\react-native-gesture-handler\ios/**",
-					"$(SRCROOT)\..\node_modules\react-native-orientation\iOS\RCTOrientation/**",
+					"$(SRCROOT)\..\node_modules\react-native-svg\ios/**",
+					"$(SRCROOT)\..\node_modules\react-native-orientation-locker\iOS\RCTOrientation",
 				);
 			};
 			name = Release;

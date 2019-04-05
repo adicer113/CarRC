@@ -58,7 +58,7 @@ export function WifiControllerHOC(ControllerComp) {
     }
 
     render() {
-        return <ControllerComp sendDataInterval={100} {...this.props} {...this.functions}/>
+        return <ControllerComp sendDataInterval={100} connectionType="wifi" {...this.props} {...this.functions}/>
     }
   }
 

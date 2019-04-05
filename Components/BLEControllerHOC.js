@@ -140,7 +140,7 @@ export function BLEControllerHOC(ControllerComp) {
     }
 
     render() {
-        return <ControllerComp sendDataInterval={200} {...this.props} {...this.functions}/>
+        return <ControllerComp sendDataInterval={200} connectionType="ble" {...this.props} {...this.functions}/>
     }
 
   }

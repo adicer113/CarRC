@@ -8,7 +8,8 @@ import {
   TextInput,
   Image
 } from 'react-native';
-import Orientation from 'react-native-orientation';
+//import Orientation from 'react-native-orientation';
+import Orientation from 'react-native-orientation-locker';
 import io from 'socket.io-client';
 import Toast, {DURATION} from 'react-native-easy-toast'
 
@@ -22,7 +23,7 @@ export default class ChooseConnectionScreen extends Component {
 
         super(props)
         this.state = {
-            ip: "192.168.1.21",
+            ip: "192.168.1.11",
             IPmodalVisible: false,
             connecting: false,
         }
