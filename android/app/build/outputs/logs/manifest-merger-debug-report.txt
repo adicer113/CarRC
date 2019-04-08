@@ -5,8 +5,8 @@ INJECTED from D:\ine\workspace\carrc\android\app\src\main\AndroidManifest.xml:1:
 INJECTED from D:\ine\workspace\carrc\android\app\src\main\AndroidManifest.xml:1:1-26:12
 INJECTED from D:\ine\workspace\carrc\android\app\src\main\AndroidManifest.xml:1:1-26:12
 MERGED from D:\ine\workspace\carrc\android\app\src\main\AndroidManifest.xml:1:1-26:12
+MERGED from [:react-native-orientation-locker] D:\ine\workspace\carrc\node_modules\react-native-orientation-locker\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-11:12
 MERGED from [:react-native-svg] D:\ine\workspace\carrc\node_modules\react-native-svg\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-9:12
-MERGED from [:react-native-orientation] D:\ine\workspace\carrc\node_modules\react-native-orientation\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-11:12
 MERGED from [:react-native-gesture-handler] D:\ine\workspace\carrc\node_modules\react-native-gesture-handler\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-11:12
 MERGED from [:react-native-ble-manager] D:\ine\workspace\carrc\node_modules\react-native-ble-manager\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-15:12
 MERGED from [:react-native-sensors] D:\ine\workspace\carrc\node_modules\react-native-sensors\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-11:12
@@ -134,10 +134,10 @@ uses-sdk
 INJECTED from D:\ine\workspace\carrc\android\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from D:\ine\workspace\carrc\android\app\src\main\AndroidManifest.xml
 INJECTED from D:\ine\workspace\carrc\android\app\src\main\AndroidManifest.xml
+MERGED from [:react-native-orientation-locker] D:\ine\workspace\carrc\node_modules\react-native-orientation-locker\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-9:41
+MERGED from [:react-native-orientation-locker] D:\ine\workspace\carrc\node_modules\react-native-orientation-locker\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-9:41
 MERGED from [:react-native-svg] D:\ine\workspace\carrc\node_modules\react-native-svg\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [:react-native-svg] D:\ine\workspace\carrc\node_modules\react-native-svg\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-7:41
-MERGED from [:react-native-orientation] D:\ine\workspace\carrc\node_modules\react-native-orientation\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-9:41
-MERGED from [:react-native-orientation] D:\ine\workspace\carrc\node_modules\react-native-orientation\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-9:41
 MERGED from [:react-native-gesture-handler] D:\ine\workspace\carrc\node_modules\react-native-gesture-handler\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-9:41
 MERGED from [:react-native-gesture-handler] D:\ine\workspace\carrc\node_modules\react-native-gesture-handler\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-9:41
 MERGED from [:react-native-ble-manager] D:\ine\workspace\carrc\node_modules\react-native-ble-manager\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44

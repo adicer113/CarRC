@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Sun Mar 31 21:39:23 CEST 2019
+#Sun Apr 07 18:56:47 CEST 2019
 5.base=D\:\\ine\\workspace\\carrc\\android\\app\\build\\intermediates\\transforms\\mergeJniLibs\\debug\\0
 42.base=D\:\\ine\\workspace\\carrc\\android\\app\\build\\intermediates\\transforms\\mergeJniLibs\\debug\\0
 22.path=lib/armeabi-v7a/libreactnativejni.so

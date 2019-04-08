@@ -28,13 +28,16 @@ export default class ControllerScreen extends Component {
         this.state = {
             speed: 0,
             wheelRot: 0,
-            lane_assist: false,
-            smart_lights: false,
-            adaptive_cruise_control: false,
-            realSpeed: 0,
+            real_speed: 0,
+            real_lane_assist: false,
+            real_smart_lights: false,
+            real_adaptive_cruise_control: false,
             screen: 'signals'   // aky screen je zobrazeny 'signals' || 'camera'
         }
 
+        this.lane_assist = false;
+        this.smart_lights = false;
+        this.adaptive_cruise_control = false;
         this.minSpeed = 0;
         this.maxSpeed = 120;
         this.speedChangeValue = 10;
@@ -59,47 +62,57 @@ export default class ControllerScreen extends Component {
     getGyroscopeData() {
         this.subscription = accelerometer.subscribe(({ x, y, z, timestamp }) => {
             this.setWheelRotation(Math.round((y+10) * 100) / 100);
-            this.props.sendData(this.state.wheelRot, this.state.speed, this.state.lane_assist | 0, this.state.adaptive_cruise_control | 0, this.state.smart_lights | 0);
+            this.props.sendData(this.state.wheelRot, this.state.speed, this.lane_assist | 0, this.adaptive_cruise_control | 0, this.smart_lights | 0);
         });
     }
 
     changeSpeed = (val) => {
         // when adaptive cruise control is active we cant control speed ***
-        if(!this.state.adaptive_cruise_control) {
+        //if(!this.state.adaptive_cruise_control) {
             this.setState({ speed: this.state.speed + val });
-        }
+        //}
     }
 
     setWheelRotation = (val) => {
-        if(!this.state.lane_assist)
+        //if(!this.state.lane_assist)
             this.setState({wheelRot: val});
     }
 
     switch_lane_assist = () => {
 
-        if(this.state.lane_assist)
-            this.setState({lane_assist: false});
+        if(this.state.real_lane_assist)
+            this.lane_assist = false;
         else
-            this.setState({lane_assist: true});
+            this.lane_assist = true;
 
     }
 
     switch_smart_lights = () => {
 
-        if(this.state.smart_lights)
-            this.setState({smart_lights: false});
+        if(this.state.real_smart_lights)
+            this.smart_lights = false;
         else
-            this.setState({smart_lights: true});
+            this.smart_lights = true;
     
     }
 
     switch_adaptive_cruise_control = () => {
 
-        if(this.state.adaptive_cruise_control)
-            this.setState({adaptive_cruise_control: false});
+        if(this.state.real_adaptive_cruise_control)
+            this.adaptive_cruise_control = false;
         else
-            this.setState({adaptive_cruise_control: true});
+            this.adaptive_cruise_control = true;
 
+    }
+
+    renderSignalsView = () => {
+        return (<View style={{flex: 1, flexDirection: 'column'}}>
+                    <View style={styles.SpeedClockView}>
+                        <SpeedClock style={{flex: 1}} speed={this.state.real_speed} minSpeed={this.minSpeed} maxSpeed={this.maxSpeed} />
+                    </View>
+                    <View style={styles.Grp}>
+                    </View>
+                </View>)
     }
 
     renderCameraView = () => {
@@ -145,7 +158,7 @@ export default class ControllerScreen extends Component {
                                     height="100%"
                                     stroke="white"
                                     strokeWidth="2"
-                                    fill={this.state.lane_assist?"yellow":"#8db8ff"}
+                                    fill={this.state.real_lane_assist?"yellow":"#8db8ff"}
                                 />
                                 <SvgText
                                     fill="black"
@@ -165,7 +178,7 @@ export default class ControllerScreen extends Component {
                                     height="100%"
                                     stroke="white"
                                     strokeWidth="2"
-                                    fill={this.state.adaptive_cruise_control?"yellow":"#8db8ff"}
+                                    fill={this.state.real_adaptive_cruise_control?"yellow":"#8db8ff"}
                                 />
                                 <SvgText
                                     fill="black"
@@ -178,41 +191,12 @@ export default class ControllerScreen extends Component {
                         </TouchableHighlight>
                     </View>
                     <TouchableHighlight style={styles.SpeedButton} onPress={() => this.changeSpeed(-this.speedChangeValue)}>
-                        <Svg height="100%" width="100%">
-                            <Rect
-                                x="0"
-                                y="0"
-                                width="100%"
-                                height="100%"
-                                stroke="black"
-                                strokeWidth="2"
-                                fill="#5b5b5b"
-                            />
-                            <SvgText
-                                fill="white"
-                                stroke="black"
-                                fontSize="70"
-                                x="50%"
-                                y="50%"
-                                textAnchor="middle"
-                            >-</SvgText>
-                        </Svg>
+                        <Text style={{color: 'white', fontSize: 70}}>-</Text>
                     </TouchableHighlight>
                 </View>
                 <View style={styles.ContentContainer}>
                     <View style={styles.Content}>
-                        {this.state.screen == 'signals' ?
-                            (<View style={{flex: 1, flexDirection: 'column'}}>
-                                <View style={styles.SpeedClockView}>
-                                    <SpeedClock style={{flex: 1}} speed={this.state.realSpeed} minSpeed={this.minSpeed} maxSpeed={this.maxSpeed} />
-                                </View>
-                                <View style={styles.Grp}>
-                                    
-                                </View>
-                            </View>)
-                            :
-                            this.renderCameraView()                            
-                        }
+                        { this.state.screen == 'signals' ? this.renderSignalsView() : this.renderCameraView() }
                     </View>
                     <View style={styles.SpeedBar}>
                         <View style={{ ...styles.SpeedBarFill, width: (100/this.maxSpeed)*this.state.speed }}></View>
@@ -282,25 +266,7 @@ export default class ControllerScreen extends Component {
                         </TouchableHighlight>
                     </View>
                     <TouchableHighlight style={styles.SpeedButton} onPress={() => this.changeSpeed(this.speedChangeValue)}>
-                        <Svg height="100%" width="100%">
-                            <Rect
-                                x="0"
-                                y="0"
-                                width="100%"
-                                height="100%"
-                                stroke="black"
-                                strokeWidth="2"
-                                fill="#5b5b5b"
-                            />
-                            <SvgText
-                                fill="white"
-                                stroke="black"
-                                fontSize="70"
-                                x="50%"
-                                y="50%"
-                                textAnchor="middle"
-                            >+</SvgText>
-                        </Svg>
+                        <Text style={{color: 'white', fontSize: 70}}>+</Text>
                     </TouchableHighlight>
               </View>
            </View>
@@ -371,7 +337,9 @@ const styles = StyleSheet.create({
     },
     SpeedButton: {
         flex: 1/3,
-        backgroundColor: '#cc6dff',
+        backgroundColor: '#5b5b5b',
+        borderColor: 'black', 
+        borderWidth: 2,
         alignItems: 'center', 
         justifyContent: 'center'
     }

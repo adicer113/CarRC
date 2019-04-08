@@ -98,7 +98,7 @@ export function BLEControllerHOC(ControllerComp) {
         let spd = parseInt(res[1]);
         let wheelRot = parseInt(res[0]);
 
-        this.setStateFunc({realSpeed: spd, lane_assist: lane_assist, adaptive_cruise_control: adapt_cruise_cont, smart_lights: smart_lights});
+        this.setStateFunc({real_speed: spd, real_lane_assist: lane_assist, real_adaptive_cruise_control: adapt_cruise_cont, real_smart_lights: smart_lights});
 
     }
 
