@@ -48,7 +48,7 @@ export default class ChooseConnectionScreen extends Component {
         console.log("connecting to http://"+this.state.ip+":9000 ... ");
 
         socketIO.on('connection_successful', () => {
-            this.props.navigation.navigate('WifiController', {socketIO});
+            this.props.navigation.navigate('WifiController', {socketIO, ip: this.state.ip});
             this.setState({connecting: false});
         });
 
@@ -98,10 +98,10 @@ export default class ChooseConnectionScreen extends Component {
                         </View>
                         <View style={styles.IPModalButtonsContainer}>
                             <TouchableHighlight style={styles.IPModalButton} onPress={() => { this.connectThroughWifi() }}>
-                                <Text style={{color: 'white', fontSize: 18 }}>Pripojiť</Text>
+                                <Text style={{color: 'white', fontSize: 18 }}>Connect</Text>
                             </TouchableHighlight>
                             <TouchableHighlight style={styles.IPModalButton} onPress={() => { this.setIPModalVisibility(false) }}>
-                                <Text style={{color: 'white', fontSize: 18 }}>Zrušiť</Text>
+                                <Text style={{color: 'white', fontSize: 18 }}>Cancel</Text>
                             </TouchableHighlight>
                         </View>
                     </View>

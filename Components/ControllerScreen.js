@@ -3,6 +3,7 @@ import {
   StyleSheet,
   Text,
   View,
+  ImageBackground,
   WebView,
   Dimensions,
   TouchableHighlight,
@@ -11,10 +12,8 @@ import {
   NativeModules
 } from 'react-native';
 import { accelerometer, gyroscope , setUpdateIntervalForType, SensorTypes } from "react-native-sensors";
-//import Orientation from 'react-native-orientation';
 import Orientation from 'react-native-orientation-locker';
 import SpeedClock from './SpeedClock';
-import Svg,{Rect, Text as SvgText} from 'react-native-svg';
 
 export default class ControllerScreen extends Component {
 
@@ -32,15 +31,21 @@ export default class ControllerScreen extends Component {
             real_lane_assist: false,
             real_smart_lights: false,
             real_adaptive_cruise_control: false,
-            screen: 'signals'   // aky screen je zobrazeny 'signals' || 'camera'
+            screen: 'signals',   // aky screen je zobrazeny 'signals' || 'camera'
+            speedBarHeight: 0
         }
 
         this.lane_assist = false;
         this.smart_lights = false;
         this.adaptive_cruise_control = false;
-        this.minSpeed = 0;
-        this.maxSpeed = 120;
-        this.speedChangeValue = 10;
+        this.minSpeed = -100;       // min rychlost
+        this.maxSpeed = 100;        // max rychlost 
+        this.speedChangeValue = 10; // 
+
+        this.minTurnGyrVal = -8;    // minimalna akceptovana hodnota gyroscopu (natocenia)
+        this.maxTurnGyrVal = 8;     // maximalna akceptovana hodnota gyroscopu (natocenia)
+        this.minServoVal = 60;      // minimalny uhol natocenia kolies na vozidle
+        this.maxServoVal = 120;     // maximalny uhol natocenia kolies na vozidle
     }
 
     componentDidMount() {
@@ -61,7 +66,7 @@ export default class ControllerScreen extends Component {
 
     getGyroscopeData() {
         this.subscription = accelerometer.subscribe(({ x, y, z, timestamp }) => {
-            this.setWheelRotation(Math.round((y+10) * 100) / 100);
+            this.setWheelRotation(y);
             this.props.sendData(this.state.wheelRot, this.state.speed, this.lane_assist | 0, this.adaptive_cruise_control | 0, this.smart_lights | 0);
         });
     }
@@ -69,13 +74,40 @@ export default class ControllerScreen extends Component {
     changeSpeed = (val) => {
         // when adaptive cruise control is active we cant control speed ***
         //if(!this.state.adaptive_cruise_control) {
-            this.setState({ speed: this.state.speed + val });
+            if(val > 0)
+            {
+                if(this.state.speed + val <= this.maxSpeed)
+                    this.setState({ speed: this.state.speed + val });
+            }
+            else {
+                if(this.state.speed + val >= this.minSpeed)
+                    this.setState({ speed: this.state.speed + val });
+            }
         //}
     }
 
-    setWheelRotation = (val) => {
-        //if(!this.state.lane_assist)
-            this.setState({wheelRot: val});
+    setWheelRotation = (gyrVal) => {
+
+        // natocenie kolies mozme ovladat iba ak nie je zapnuta funkcia lane assistant
+        if(!this.state.real_lane_assist) {
+            
+            let val = gyrVal;
+
+            if(gyrVal < this.minTurnGyrVal) {
+                val = this.minTurnGyrVal;
+            }
+            else if(gyrVal > this.maxTurnGyrVal) {
+                val = this.maxTurnGyrVal;
+            }
+
+            let gyrValDiff = this.maxTurnGyrVal - this.minTurnGyrVal;
+            let servoValDiff = this.maxServoVal - this.minServoVal;
+            let ratio = servoValDiff/gyrValDiff;
+            let newWhRot = (val*ratio) + this.minServoVal + (servoValDiff/2);
+
+            this.setState({wheelRot: Math.round((newWhRot * 100) / 100)});
+        }
+
     }
 
     switch_lane_assist = () => {
@@ -118,10 +150,25 @@ export default class ControllerScreen extends Component {
     renderCameraView = () => {
 
         if(this.props.connectionType == 'ble')
-            return (<Text>NOT SUPPORTED IN BLE MODE</Text>);
+            return (<Text style={{color: 'white', fontSize: 30}}> NOT SUPPORTED IN BLE MODE </Text>);
 
-        return (<WebView source={{uri: 'https://youtu.be/Um-Zj_RR8P8'}} style={{flex: 1}}/>);
+        //return (<WebView source={{uri: 'https://'+this.props.ip+':8081'}} style={{flex: 1}}/>);
+        return (<WebView enableCache={true} source={{uri: 'https://hltv.org'}} style={{flex: 1}}/>);
 
+    }
+
+    renderSpeedBarFill = () => {
+
+        let perc = ((100/this.maxSpeed)*Math.abs(this.state.speed))/2;
+        let marginL = "50%";
+        let bgColor = "#8db8ff";
+
+        if(this.state.speed < 0) {
+            marginL = (50-perc)+"%";
+            bgColor = "red";
+        }
+
+        return (<View style={{ height: "100%", marginLeft: marginL, width: perc + "%", backgroundColor: bgColor }}></View>);
     }
 
     render() {
@@ -129,65 +176,14 @@ export default class ControllerScreen extends Component {
            <View style={styles.Container}>
                 <View style={styles.LeftBar}>
                     <View style={styles.ButtonsContainer}>
-                        <TouchableHighlight style={styles.Button} onPress={() => this.switch_smart_lights()}>
-                            <Svg height="100%" width="100%">
-                                <Rect
-                                    x="0"
-                                    y="0"
-                                    width="100%"
-                                    height="100%"
-                                    stroke="white"
-                                    strokeWidth="2"
-                                    fill={this.state.smart_lights?"yellow":"#8db8ff"}
-                                />
-                                <SvgText
-                                    fill="black"
-                                    fontSize="15"
-                                    x="50%"
-                                    y="50%"
-                                    textAnchor="middle"
-                                >Smart Lights</SvgText>
-                            </Svg>
+                        <TouchableHighlight style={{...styles.Button, backgroundColor: this.state.real_smart_lights?"yellow":"#8db8ff" }} onPress={() => this.switch_smart_lights()}>
+                            <Text style={{color: 'black', fontSize: 15}}>Smart Lights</Text>
                         </TouchableHighlight>
-                        <TouchableHighlight style={styles.Button} onPress={() => this.switch_lane_assist()}>
-                            <Svg height="100%" width="100%">
-                                <Rect
-                                    x="0"
-                                    y="0"
-                                    width="100%"
-                                    height="100%"
-                                    stroke="white"
-                                    strokeWidth="2"
-                                    fill={this.state.real_lane_assist?"yellow":"#8db8ff"}
-                                />
-                                <SvgText
-                                    fill="black"
-                                    fontSize="15"
-                                    x="50%"
-                                    y="50%"
-                                    textAnchor="middle"
-                                >Lane Assistant</SvgText>
-                            </Svg>
+                        <TouchableHighlight style={{...styles.Button, backgroundColor: this.state.real_lane_assist?"yellow":"#8db8ff" }} onPress={() => this.switch_lane_assist()}>
+                            <Text style={{color: 'black', fontSize: 15}}>Lane Assistant</Text>
                         </TouchableHighlight>
-                        <TouchableHighlight style={styles.Button} onPress={() => this.switch_adaptive_cruise_control()}>
-                            <Svg height="100%" width="100%">
-                                <Rect
-                                    x="0"
-                                    y="0"
-                                    width="100%"
-                                    height="100%"
-                                    stroke="white"
-                                    strokeWidth="2"
-                                    fill={this.state.real_adaptive_cruise_control?"yellow":"#8db8ff"}
-                                />
-                                <SvgText
-                                    fill="black"
-                                    fontSize="15"
-                                    x="50%"
-                                    y="50%"
-                                    textAnchor="middle"
-                                >Cruise Control</SvgText>
-                            </Svg>
+                        <TouchableHighlight style={{...styles.Button, backgroundColor: this.state.real_adaptive_cruise_control?"yellow":"#8db8ff" }} onPress={() => this.switch_adaptive_cruise_control()}>
+                            <Text style={{color: 'black', fontSize: 15}}>Cruise Control</Text>
                         </TouchableHighlight>
                     </View>
                     <TouchableHighlight style={styles.SpeedButton} onPress={() => this.changeSpeed(-this.speedChangeValue)}>
@@ -198,71 +194,21 @@ export default class ControllerScreen extends Component {
                     <View style={styles.Content}>
                         { this.state.screen == 'signals' ? this.renderSignalsView() : this.renderCameraView() }
                     </View>
-                    <View style={styles.SpeedBar}>
-                        <View style={{ ...styles.SpeedBarFill, width: (100/this.maxSpeed)*this.state.speed }}></View>
+                    <View onLayout={(event) => { this.setState({speedBarHeight: event.nativeEvent.layout.height}) }}  style={styles.SpeedBar}>
+                        {this.renderSpeedBarFill()}
+                        <ImageBackground source={require('../assets/img/ruller.png')} style={{width: '100%', height: '100%', marginTop: -this.state.speedBarHeight}} resizeMode="stretch"></ImageBackground>
                     </View>
                 </View>
                 <View style={styles.RightBar}>
                     <View style={styles.ButtonsContainer}>
-                        <TouchableHighlight style={styles.Button} onPress={() => this.props.disconnect()}>
-                            <Svg height="100%" width="100%">
-                                <Rect
-                                    x="0"
-                                    y="0"
-                                    width="100%"
-                                    height="100%"
-                                    stroke="white"
-                                    strokeWidth="2"
-                                    fill="#f73b3b"
-                                />
-                                <SvgText
-                                    fill="white"
-                                    fontSize="16"
-                                    x="50%"
-                                    y="50%"
-                                    textAnchor="middle"
-                                >Disconnect</SvgText>
-                            </Svg>
+                        <TouchableHighlight style={{...styles.Button, backgroundColor: "#f73b3b" }} onPress={() => this.props.disconnect()}>
+                            <Text style={{color: 'white', fontSize: 15}}>Disconnect</Text>
                         </TouchableHighlight>
                         <TouchableHighlight style={styles.Button} onPress={() => this.setState({screen: 'signals'})}>
-                            <Svg height="100%" width="100%">
-                                <Rect
-                                    x="0"
-                                    y="0"
-                                    width="100%"
-                                    height="100%"
-                                    stroke="white"
-                                    strokeWidth="2"
-                                    fill="#8db8ff"
-                                />
-                                <SvgText
-                                    fill="black"
-                                    fontSize="16"
-                                    x="50%"
-                                    y="50%"
-                                    textAnchor="middle"
-                                >Signals</SvgText>
-                            </Svg>                            
+                            <Text style={{color: 'black', fontSize: 15}}>Signals</Text>                       
                         </TouchableHighlight>
                         <TouchableHighlight style={styles.Button} onPress={() => this.setState({screen: 'camera'})}>
-                            <Svg height="100%" width="100%">
-                                <Rect
-                                    x="0"
-                                    y="0"
-                                    width="100%"
-                                    height="100%"
-                                    stroke="white"
-                                    strokeWidth="2"
-                                    fill="#8db8ff"
-                                />
-                                <SvgText
-                                    fill="black"
-                                    fontSize="16"
-                                    x="50%"
-                                    y="50%"
-                                    textAnchor="middle"
-                                >Camera</SvgText>
-                            </Svg>
+                            <Text style={{color: 'black', fontSize: 15}}>Camera</Text>
                         </TouchableHighlight>
                     </View>
                     <TouchableHighlight style={styles.SpeedButton} onPress={() => this.changeSpeed(this.speedChangeValue)}>
@@ -312,12 +258,7 @@ const styles = StyleSheet.create({
     },
     SpeedBar: {
         flex: 1/6,
-        backgroundColor: '#5b5b5b',
-        padding: 5
-    },    
-    SpeedBarFill: {
-        height: "100%",
-        backgroundColor: '#8db8ff'
+        backgroundColor: '#5b5b5b'
     },
     RightBar: {
         flex: 1/6,
@@ -331,14 +272,16 @@ const styles = StyleSheet.create({
     },
     Button: { 
         flex: 1,
-        backgroundColor: '#2EFE2E',
+        backgroundColor: '#8db8ff',
         alignItems: 'center',
-        justifyContent: 'center' 
+        justifyContent: 'center',
+        borderWidth: 2,
+        borderColor: 'white'
     },
     SpeedButton: {
         flex: 1/3,
         backgroundColor: '#5b5b5b',
-        borderColor: 'black', 
+        borderColor: 'white', 
         borderWidth: 2,
         alignItems: 'center', 
         justifyContent: 'center'

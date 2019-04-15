@@ -9,7 +9,7 @@ export default class SpeedClock extends Component {
     constructor(props) {
         super(props);
         this.maxDgrs = 240;
-        this.DgrSpd = this.maxDgrs / (this.props.maxSpeed - this.props.minSpeed);
+        this.DgrSpd = this.maxDgrs / this.props.maxSpeed;
     }
 
     render() {
@@ -19,7 +19,7 @@ export default class SpeedClock extends Component {
                     d="M 35 115 A 60 60 0 1 1 125 115"
                     fill="none"
                     stroke="yellow"
-                    strokeWidth="12"
+                    strokeWidth="10"
                 />
                 <Path
                     d="M 69 78 L 74 46 L 80 78"
@@ -27,7 +27,7 @@ export default class SpeedClock extends Component {
                     stroke="black"
                     strokeWidth="1"
                     origin="74, 78"
-                    rotation={(this.props.speed * this.DgrSpd)-(this.maxDgrs/2)}
+                    rotation={(Math.abs(this.props.speed) * this.DgrSpd)-(this.maxDgrs/2)}
                 />
                 <SvgText
                     fill="red"
@@ -36,8 +36,19 @@ export default class SpeedClock extends Component {
                     x="50%"
                     y="123"
                     textAnchor="middle">
-                    {this.props.speed}
+                    {Math.abs(this.props.speed)}
                 </SvgText>
+                {this.props.speed < 0 &&
+                    <SvgText
+                        fill="red"
+                        stroke="#ff907f"
+                        fontSize="25"
+                        x="145"
+                        y="25"
+                        textAnchor="middle">
+                        R
+                    </SvgText>
+                }
             </Svg>
         );
     }
