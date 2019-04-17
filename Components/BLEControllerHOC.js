@@ -87,24 +87,25 @@ export function BLEControllerHOC(ControllerComp) {
         console.log('Received data (BLE): '+ this.stringFromArray(data.value));
 
         // parse data
-        let dataStr = this.stringFromArray(data.value);
-        let res = dataStr.split("l");
+        let res = data.split("sl");
         let smart_lights = parseInt(res[1]);
-        res = res[0].split("t");
+        res = res[0].split("ac");
         let adapt_cruise_cont = parseInt(res[1]);
-        res = res[0].split("a");
+        res = res[0].split("la");
         let lane_assist = parseInt(res[1]);
+        res = res[0].split("l");
+        let lights_on = parseInt(res[1]);
         res = res[0].split("s");
         let spd = parseInt(res[1]);
         let wheelRot = parseInt(res[0]);
 
-        this.setStateFunc({real_speed: spd, real_lane_assist: lane_assist, real_adaptive_cruise_control: adapt_cruise_cont, real_smart_lights: smart_lights});
+        this.setStateFunc({real_wheelRot: wheelRot, real_speed: spd, real_lights_on: lights_on, real_lane_assist: lane_assist, real_adaptive_cruise_control: adapt_cruise_cont, real_smart_lights: smart_lights});
 
     }
 
-    sendData = (wheelRotation, speed, laneAssistant, adaptiveCruiseControl, smartLights) => {
+    sendData = (wheelRotation, speed, lightsON, laneAssistant, adaptiveCruiseControl, smartLights) => {
         
-        let dataSTR = wheelRotation + "s" + speed + "a" + laneAssistant + "t" + adaptiveCruiseControl + "l" + smartLights;
+        let dataSTR = wheelRotation + "s" + speed + "l" + lightsON + "la" + laneAssistant + "ac" + adaptiveCruiseControl + "sl" + smartLights;
         
         if(!this.state.writing) {
 

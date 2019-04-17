@@ -12,7 +12,7 @@
     "react": "16.8.3",
     "react-native": "0.59.2",
     "react-native-ble-manager": "^6.6.2",
-    "react-native-chart-kit": "^2.4.0",
+    "react-native-charts-wrapper": "^0.5.1",
     "react-native-easy-toast": "^1.2.0",
     "react-native-gesture-handler": "^1.1.0",
     "react-native-orientation-locker": "^1.1.5",
@@ -23,7 +23,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.4.0",
-    "@babel/runtime": "^7.4.2",
+    "@babel/runtime": "^7.4.3",
     "@react-native-community/eslint-config": "^0.0.3",
     "babel-jest": "^24.5.0",
     "eslint": "^5.16.0",

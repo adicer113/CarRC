@@ -28,27 +28,29 @@ export function WifiControllerHOC(ControllerComp) {
 
         this.socket.on('data', (data) => {
             
-            console.log("Received data (WiFi): " + typeof data);
+            console.log("Received data (WiFi): " + data);
         
             // parse data
-            let res = data.split("l");
+            let res = data.split("sl");
             let smart_lights = parseInt(res[1]);
-            res = res[0].split("t");
+            res = res[0].split("ac");
             let adapt_cruise_cont = parseInt(res[1]);
-            res = res[0].split("a");
+            res = res[0].split("la");
             let lane_assist = parseInt(res[1]);
+            res = res[0].split("l");
+            let lights_on = parseInt(res[1]);
             res = res[0].split("s");
             let spd = parseInt(res[1]);
             let wheelRot = parseInt(res[0]);
 
-            setStateFunc({real_speed: spd, real_lane_assist: lane_assist, real_adaptive_cruise_control: adapt_cruise_cont, real_smart_lights: smart_lights});
+            setStateFunc({real_wheelRot: wheelRot, real_speed: spd, real_lights_on: lights_on, real_lane_assist: lane_assist, real_adaptive_cruise_control: adapt_cruise_cont, real_smart_lights: smart_lights});
         
         });
     
     }
 
-    sendData = (wheelRotation, speed, laneAssistant, adaptiveCruiseControl, smartLights) => {
-        let data = wheelRotation + "s" + speed + "a" + laneAssistant + "t" + adaptiveCruiseControl + "l" + smartLights;
+    sendData = (wheelRotation, speed, lightsON, laneAssistant, adaptiveCruiseControl, smartLights) => {
+        let data = wheelRotation + "s" + speed + "l" + lightsON + "la" + laneAssistant + "ac" + adaptiveCruiseControl + "sl" + smartLights;
         this.socket.emit('data', data);
     }
 

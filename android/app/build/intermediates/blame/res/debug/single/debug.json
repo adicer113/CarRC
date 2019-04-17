@@ -12,6 +12,10 @@
         "source": "D:\\ine\\workspace\\carrc\\android\\app\\src\\main\\res\\mipmap-hdpi\\ic_launcher.png"
     },
     {
+        "merged": "D:\\ine\\workspace\\carrc\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-nodpi-v4_oval_marker.png.flat",
+        "source": "D:\\ine\\workspace\\carrc\\node_modules\\react-native-charts-wrapper\\android\\build\\intermediates\\packaged_res\\debug\\drawable-nodpi-v4\\oval_marker.png"
+    },
+    {
         "merged": "D:\\ine\\workspace\\carrc\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4_abc_btn_radio_to_on_mtrl_000.png.flat",
         "source": "C:\\Users\\xconm\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\d7b80ec837187bf212b03687ac5b96a3\\res\\drawable-xxhdpi-v4\\abc_btn_radio_to_on_mtrl_000.png"
     },
@@ -94,6 +98,10 @@
     {
         "merged": "D:\\ine\\workspace\\carrc\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout_notification_template_part_chronometer.xml.flat",
         "source": "C:\\Users\\xconm\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-28.0.0.aar\\743ef506e1b6ce09867f500e78aab635\\res\\layout\\notification_template_part_chronometer.xml"
+    },
+    {
+        "merged": "D:\\ine\\workspace\\carrc\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-nodpi-v4_rectangle_marker_top_left.9.png.flat",
+        "source": "D:\\ine\\workspace\\carrc\\node_modules\\react-native-charts-wrapper\\android\\build\\intermediates\\packaged_res\\debug\\drawable-nodpi-v4\\rectangle_marker_top_left.9.png"
     },
     {
         "merged": "D:\\ine\\workspace\\carrc\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4_abc_spinner_mtrl_am_alpha.9.png.flat",
@@ -186,6 +194,10 @@
     {
         "merged": "D:\\ine\\workspace\\carrc\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldrtl-hdpi-v17_abc_ic_menu_cut_mtrl_alpha.png.flat",
         "source": "C:\\Users\\xconm\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\d7b80ec837187bf212b03687ac5b96a3\\res\\drawable-ldrtl-hdpi-v17\\abc_ic_menu_cut_mtrl_alpha.png"
+    },
+    {
+        "merged": "D:\\ine\\workspace\\carrc\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout_oval_marker.xml.flat",
+        "source": "D:\\ine\\workspace\\carrc\\node_modules\\react-native-charts-wrapper\\android\\build\\intermediates\\packaged_res\\debug\\layout\\oval_marker.xml"
     },
     {
         "merged": "D:\\ine\\workspace\\carrc\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4_abc_btn_switch_to_on_mtrl_00001.9.png.flat",
@@ -332,6 +344,10 @@
         "source": "D:\\ine\\workspace\\carrc\\android\\app\\src\\main\\res\\mipmap-xxxhdpi\\ic_launcher_round.png"
     },
     {
+        "merged": "D:\\ine\\workspace\\carrc\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-nodpi-v4_rectangle_marker_top_right.9.png.flat",
+        "source": "D:\\ine\\workspace\\carrc\\node_modules\\react-native-charts-wrapper\\android\\build\\intermediates\\packaged_res\\debug\\drawable-nodpi-v4\\rectangle_marker_top_right.9.png"
+    },
+    {
         "merged": "D:\\ine\\workspace\\carrc\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_abc_menu_hardkey_panel_mtrl_mult.9.png.flat",
         "source": "C:\\Users\\xconm\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\d7b80ec837187bf212b03687ac5b96a3\\res\\drawable-xhdpi-v4\\abc_menu_hardkey_panel_mtrl_mult.9.png"
     },
@@ -350,6 +366,10 @@
     {
         "merged": "D:\\ine\\workspace\\carrc\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable_abc_tab_indicator_material.xml.flat",
         "source": "C:\\Users\\xconm\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\d7b80ec837187bf212b03687ac5b96a3\\res\\drawable\\abc_tab_indicator_material.xml"
+    },
+    {
+        "merged": "D:\\ine\\workspace\\carrc\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout_rectangle_marker.xml.flat",
+        "source": "D:\\ine\\workspace\\carrc\\node_modules\\react-native-charts-wrapper\\android\\build\\intermediates\\packaged_res\\debug\\layout\\rectangle_marker.xml"
     },
     {
         "merged": "D:\\ine\\workspace\\carrc\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi-v4_abc_ic_star_black_36dp.png.flat",
@@ -872,6 +892,10 @@
         "source": "C:\\Users\\xconm\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\d7b80ec837187bf212b03687ac5b96a3\\res\\drawable-hdpi-v4\\abc_list_pressed_holo_light.9.png"
     },
     {
+        "merged": "D:\\ine\\workspace\\carrc\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-nodpi-v4_rectangle_marker_right.9.png.flat",
+        "source": "D:\\ine\\workspace\\carrc\\node_modules\\react-native-charts-wrapper\\android\\build\\intermediates\\packaged_res\\debug\\drawable-nodpi-v4\\rectangle_marker_right.9.png"
+    },
+    {
         "merged": "D:\\ine\\workspace\\carrc\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_abc_btn_radio_to_on_mtrl_000.png.flat",
         "source": "C:\\Users\\xconm\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\d7b80ec837187bf212b03687ac5b96a3\\res\\drawable-hdpi-v4\\abc_btn_radio_to_on_mtrl_000.png"
     },
@@ -890,6 +914,10 @@
     {
         "merged": "D:\\ine\\workspace\\carrc\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_abc_scrubber_control_off_mtrl_alpha.png.flat",
         "source": "C:\\Users\\xconm\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\d7b80ec837187bf212b03687ac5b96a3\\res\\drawable-xhdpi-v4\\abc_scrubber_control_off_mtrl_alpha.png"
+    },
+    {
+        "merged": "D:\\ine\\workspace\\carrc\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-nodpi-v4_rectangle_marker_top.9.png.flat",
+        "source": "D:\\ine\\workspace\\carrc\\node_modules\\react-native-charts-wrapper\\android\\build\\intermediates\\packaged_res\\debug\\drawable-nodpi-v4\\rectangle_marker_top.9.png"
     },
     {
         "merged": "D:\\ine\\workspace\\carrc\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout_select_dialog_singlechoice_material.xml.flat",
@@ -1024,6 +1052,10 @@
         "source": "C:\\Users\\xconm\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\d7b80ec837187bf212b03687ac5b96a3\\res\\color\\abc_background_cache_hint_selector_material_dark.xml"
     },
     {
+        "merged": "D:\\ine\\workspace\\carrc\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-nodpi-v4_rectangle_marker_left.9.png.flat",
+        "source": "D:\\ine\\workspace\\carrc\\node_modules\\react-native-charts-wrapper\\android\\build\\intermediates\\packaged_res\\debug\\drawable-nodpi-v4\\rectangle_marker_left.9.png"
+    },
+    {
         "merged": "D:\\ine\\workspace\\carrc\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4_abc_list_selector_disabled_holo_dark.9.png.flat",
         "source": "C:\\Users\\xconm\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\d7b80ec837187bf212b03687ac5b96a3\\res\\drawable-xxhdpi-v4\\abc_list_selector_disabled_holo_dark.9.png"
     },
@@ -1154,6 +1186,10 @@
     {
         "merged": "D:\\ine\\workspace\\carrc\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4_abc_scrubber_primary_mtrl_alpha.9.png.flat",
         "source": "C:\\Users\\xconm\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\d7b80ec837187bf212b03687ac5b96a3\\res\\drawable-xxhdpi-v4\\abc_scrubber_primary_mtrl_alpha.9.png"
+    },
+    {
+        "merged": "D:\\ine\\workspace\\carrc\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-nodpi-v4_rectangle_marker.9.png.flat",
+        "source": "D:\\ine\\workspace\\carrc\\node_modules\\react-native-charts-wrapper\\android\\build\\intermediates\\packaged_res\\debug\\drawable-nodpi-v4\\rectangle_marker.9.png"
     },
     {
         "merged": "D:\\ine\\workspace\\carrc\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4_abc_ic_commit_search_api_mtrl_alpha.png.flat",

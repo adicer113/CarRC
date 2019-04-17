@@ -13,7 +13,9 @@ import {
 } from 'react-native';
 import { accelerometer, gyroscope , setUpdateIntervalForType, SensorTypes } from "react-native-sensors";
 import Orientation from 'react-native-orientation-locker';
+import {LineChart} from 'react-native-charts-wrapper';
 import SpeedClock from './SpeedClock';
+import WheelRotation from './WheelRotation';
 
 export default class ControllerScreen extends Component {
 
@@ -27,14 +29,21 @@ export default class ControllerScreen extends Component {
         this.state = {
             speed: 0,
             wheelRot: 0,
+            real_wheelRot: 0,
             real_speed: 0,
+            real_lights_on: false,
             real_lane_assist: false,
             real_smart_lights: false,
             real_adaptive_cruise_control: false,
             screen: 'signals',   // aky screen je zobrazeny 'signals' || 'camera'
-            speedBarHeight: 0
+            speedBarHeight: 0,
+            speedData: [{x:0, y:0}]
         }
 
+        this.x = 0;
+        this.maxNumOfValuesInGraph = 20;
+        this.graphUpdateInterval = null;
+        this.lights_on = false;
         this.lane_assist = false;
         this.smart_lights = false;
         this.adaptive_cruise_control = false;
@@ -53,11 +62,26 @@ export default class ControllerScreen extends Component {
         this.props.getData(this.setStateFunc);   // start getting data from server 
         setUpdateIntervalForType(SensorTypes.accelerometer, this.props.sendDataInterval); // nastavenie intervalov ziskavania hodnot z gyroscopu
         this.getGyroscopeData();
+        this.graphUpdateInterval = setInterval(this.updateGraph, 1000);
     }
 
     componentWillUnmount() {
         console.log("CONTROLLER_SCREEN will unmount!");
         this.subscription.unsubscribe();    // stop getting gyroscope data
+        clearInterval(this.graphUpdateInterval);
+    }
+
+    updateGraph = () => {
+        this.x++;
+
+        if(this.state.speedData.length < this.maxNumOfValuesInGraph) {
+            this.setState({speedData: [ ...this.state.speedData, {x: this.x, y: this.state.real_speed} ]});
+        }
+        else {
+            let data = [...this.state.speedData];
+            data.shift();
+            this.setState({speedData: [ ...data, [{x: this.x, y: this.state.real_speed}] ]});
+        }
     }
 
     setStateFunc = (json) => {
@@ -67,23 +91,20 @@ export default class ControllerScreen extends Component {
     getGyroscopeData() {
         this.subscription = accelerometer.subscribe(({ x, y, z, timestamp }) => {
             this.setWheelRotation(y);
-            this.props.sendData(this.state.wheelRot, this.state.speed, this.lane_assist | 0, this.adaptive_cruise_control | 0, this.smart_lights | 0);
+            this.props.sendData(this.state.wheelRot, this.state.speed, this.lights_on | 0, this.lane_assist | 0, this.adaptive_cruise_control | 0, this.smart_lights | 0);
         });
     }
 
     changeSpeed = (val) => {
-        // when adaptive cruise control is active we cant control speed ***
-        //if(!this.state.adaptive_cruise_control) {
-            if(val > 0)
-            {
-                if(this.state.speed + val <= this.maxSpeed)
-                    this.setState({ speed: this.state.speed + val });
-            }
-            else {
-                if(this.state.speed + val >= this.minSpeed)
-                    this.setState({ speed: this.state.speed + val });
-            }
-        //}
+        if(val > 0)
+        {
+            if(this.state.speed + val <= this.maxSpeed)
+                this.setState({ speed: this.state.speed + val });
+        }
+        else {
+            if(this.state.speed + val >= this.minSpeed)
+                this.setState({ speed: this.state.speed + val });
+        }
     }
 
     setWheelRotation = (gyrVal) => {
@@ -137,12 +158,42 @@ export default class ControllerScreen extends Component {
 
     }
 
+    switch_lights = () => {
+        if(this.state.real_lights_on)
+            this.lights_on = false;
+        else
+            this.lights_on = true;
+    }
+
+    setScreen = () => {
+        if(this.state.screen == 'signals')
+            this.setState({screen: 'camera'})
+        else 
+            this.setState({screen: 'signals'})
+    }
+
     renderSignalsView = () => {
         return (<View style={{flex: 1, flexDirection: 'column'}}>
-                    <View style={styles.SpeedClockView}>
-                        <SpeedClock style={{flex: 1}} speed={this.state.real_speed} minSpeed={this.minSpeed} maxSpeed={this.maxSpeed} />
+                    <View style={styles.SignalsView}>
+                        <View style={styles.WheelRotView}>
+                            <WheelRotation rotation={this.state.real_wheelRot} />
+                        </View>
+                        <View style={styles.SpeedClockView}>
+                            <SpeedClock style={{flex: 1}} speed={this.state.real_speed} minSpeed={this.minSpeed} maxSpeed={this.maxSpeed} />
+                        </View>
+                        <View style={styles.LightsView}>
+                            <Text style={{color:'white'}}>{this.state.x}</Text>
+                        </View>
                     </View>
-                    <View style={styles.Grp}>
+                    <View style={styles.GraphContainer}>
+                        <Text style={{color:'white'}}>Speed Graph</Text>
+                        <View style={{flex: 1}}>
+                            <View style={{flex:1, backgroundColor:'grey'}}>
+                            <LineChart style={{flex:1}}
+                                data={{dataSets:[{label: "speed", values: this.state.speedData }]}}
+                            />
+                            </View>
+                        </View>
                     </View>
                 </View>)
     }
@@ -204,11 +255,11 @@ export default class ControllerScreen extends Component {
                         <TouchableHighlight style={{...styles.Button, backgroundColor: "#f73b3b" }} onPress={() => this.props.disconnect()}>
                             <Text style={{color: 'white', fontSize: 15}}>Disconnect</Text>
                         </TouchableHighlight>
-                        <TouchableHighlight style={styles.Button} onPress={() => this.setState({screen: 'signals'})}>
-                            <Text style={{color: 'black', fontSize: 15}}>Signals</Text>                       
+                        <TouchableHighlight style={styles.Button} onPress={() => this.switch_lights()}>
+                            <Text style={{color: 'black', fontSize: 15}}>Lights {this.state.real_lights_on?"OFF":"ON"}</Text>                       
                         </TouchableHighlight>
-                        <TouchableHighlight style={styles.Button} onPress={() => this.setState({screen: 'camera'})}>
-                            <Text style={{color: 'black', fontSize: 15}}>Camera</Text>
+                        <TouchableHighlight style={styles.Button} onPress={() => this.setScreen()}>
+                            <Text style={{color: 'black', fontSize: 15}}>{this.state.screen=='signals'?"Camera":"Signals"}</Text>
                         </TouchableHighlight>
                     </View>
                     <TouchableHighlight style={styles.SpeedButton} onPress={() => this.changeSpeed(this.speedChangeValue)}>
@@ -245,16 +296,29 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         padding: 5
     },
-    SpeedClockView: {
+    SignalsView: {
         flex: 3/5,
+        flexDirection: 'row',
         alignItems: 'center', 
         justifyContent: 'center'
     },
-    Grp: {
-        flex: 2/5,
-        backgroundColor: 'grey',
+    WheelRotView: {
+        flex: 2/7,
         alignItems: 'center', 
         justifyContent: 'center'
+    },
+    SpeedClockView: {
+        flex: 3/7,
+        alignItems: 'center', 
+        justifyContent: 'center'
+    },
+    LightsView: {
+        flex: 2/7,
+        alignItems: 'center', 
+        justifyContent: 'center'
+    },
+    GraphContainer: {
+        flex: 2/5
     },
     SpeedBar: {
         flex: 1/6,
