@@ -5,7 +5,6 @@ import {
   View,
   ImageBackground,
   WebView,
-  Dimensions,
   TouchableHighlight,
   NativeAppEventEmitter,
   NativeEventEmitter,
@@ -16,6 +15,8 @@ import Orientation from 'react-native-orientation-locker';
 import {LineChart} from 'react-native-charts-wrapper';
 import SpeedClock from './SpeedClock';
 import WheelRotation from './WheelRotation';
+import LightsState from './LightsState';
+import rullerImage from '../assets/img/ruller.png';
 
 export default class ControllerScreen extends Component {
 
@@ -49,12 +50,7 @@ export default class ControllerScreen extends Component {
         this.adaptive_cruise_control = false;
         this.minSpeed = -100;       // min rychlost
         this.maxSpeed = 100;        // max rychlost 
-        this.speedChangeValue = 10; // 
-
-        this.minTurnGyrVal = -8;    // minimalna akceptovana hodnota gyroscopu (natocenia)
-        this.maxTurnGyrVal = 8;     // maximalna akceptovana hodnota gyroscopu (natocenia)
-        this.minServoVal = 60;      // minimalny uhol natocenia kolies na vozidle
-        this.maxServoVal = 120;     // maximalny uhol natocenia kolies na vozidle
+        this.speedChangeValue = 10; //
     }
 
     componentDidMount() {
@@ -80,7 +76,7 @@ export default class ControllerScreen extends Component {
         else {
             let data = [...this.state.speedData];
             data.shift();
-            this.setState({speedData: [ ...data, [{x: this.x, y: this.state.real_speed}] ]});
+            this.setState({speedData: [ ...data, {x: this.x, y: this.state.real_speed} ]});
         }
     }
 
@@ -114,18 +110,14 @@ export default class ControllerScreen extends Component {
             
             let val = gyrVal;
 
-            if(gyrVal < this.minTurnGyrVal) {
-                val = this.minTurnGyrVal;
+            if(gyrVal < -8) {
+                val = -8;
             }
-            else if(gyrVal > this.maxTurnGyrVal) {
-                val = this.maxTurnGyrVal;
+            else if(gyrVal > 8) {
+                val = 8;
             }
 
-            let gyrValDiff = this.maxTurnGyrVal - this.minTurnGyrVal;
-            let servoValDiff = this.maxServoVal - this.minServoVal;
-            let ratio = servoValDiff/gyrValDiff;
-            let newWhRot = (val*ratio) + this.minServoVal + (servoValDiff/2);
-
+            let newWhRot = ((val+8)*(100/16)); // hodnota z gyroscopu do percent (0-100)
             this.setState({wheelRot: Math.round((newWhRot * 100) / 100)});
         }
 
@@ -176,13 +168,16 @@ export default class ControllerScreen extends Component {
         return (<View style={{flex: 1, flexDirection: 'column'}}>
                     <View style={styles.SignalsView}>
                         <View style={styles.WheelRotView}>
+                            <Text style={{color:'white'}}>Wheel rotation</Text>
                             <WheelRotation rotation={this.state.real_wheelRot} />
                         </View>
                         <View style={styles.SpeedClockView}>
+                            <Text style={{color:'white'}}>Real speed</Text>
                             <SpeedClock style={{flex: 1}} speed={this.state.real_speed} minSpeed={this.minSpeed} maxSpeed={this.maxSpeed} />
                         </View>
                         <View style={styles.LightsView}>
-                            <Text style={{color:'white'}}>{this.state.x}</Text>
+                            <Text style={{color:'white'}}>Lights</Text>
+                            <LightsState style={{flex:1}} lightsON={this.state.real_lights_on} />
                         </View>
                     </View>
                     <View style={styles.GraphContainer}>
@@ -203,8 +198,7 @@ export default class ControllerScreen extends Component {
         if(this.props.connectionType == 'ble')
             return (<Text style={{color: 'white', fontSize: 30}}> NOT SUPPORTED IN BLE MODE </Text>);
 
-        //return (<WebView source={{uri: 'https://'+this.props.ip+':8081'}} style={{flex: 1}}/>);
-        return (<WebView enableCache={true} source={{uri: 'https://hltv.org'}} style={{flex: 1}}/>);
+        return (<WebView source={{uri: 'https://'+this.props.ip+':8081'}} style={{flex: 1}}/>);
 
     }
 
@@ -247,7 +241,7 @@ export default class ControllerScreen extends Component {
                     </View>
                     <View onLayout={(event) => { this.setState({speedBarHeight: event.nativeEvent.layout.height}) }}  style={styles.SpeedBar}>
                         {this.renderSpeedBarFill()}
-                        <ImageBackground source={require('../assets/img/ruller.png')} style={{width: '100%', height: '100%', marginTop: -this.state.speedBarHeight}} resizeMode="stretch"></ImageBackground>
+                        <ImageBackground source={rullerImage} style={{width: '100%', height: '100%', marginTop: -this.state.speedBarHeight}} resizeMode="stretch"></ImageBackground>
                     </View>
                 </View>
                 <View style={styles.RightBar}>

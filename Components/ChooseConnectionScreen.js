@@ -8,10 +8,11 @@ import {
   TextInput,
   Image
 } from 'react-native';
-//import Orientation from 'react-native-orientation';
 import Orientation from 'react-native-orientation-locker';
 import io from 'socket.io-client';
-import Toast, {DURATION} from 'react-native-easy-toast'
+import Toast, {DURATION} from 'react-native-easy-toast';
+import BluetoothImg from '../assets/img/ble_button.png';
+import WifiImg from '../assets/img/wifi_button.png';
 
 export default class ChooseConnectionScreen extends Component {
 
@@ -77,10 +78,10 @@ export default class ChooseConnectionScreen extends Component {
                 <Text style={{...styles.GlowText, fontSize: 25}}> Choose connection type </Text>
                 <View style={styles.ConnectionButtonsContainer}> 
                     <TouchableHighlight style={styles.ConnectionButton} onPress={() => this.props.navigation.navigate('BleScan')}>
-                        <Image source={require('../assets/img/ble_button.png')} style={{width: '100%', height: '100%'}}></Image>
+                        <Image source={BluetoothImg} style={{width: '100%', height: '100%'}}></Image>
                     </TouchableHighlight>
                     <TouchableHighlight style={styles.ConnectionButton} onPress={() => this.setIPModalVisibility(true) }>
-                        <Image source={require('../assets/img/wifi_button.png')} style={{width: '100%', height: '100%'}}></Image>
+                        <Image source={WifiImg} style={{width: '100%', height: '100%'}}></Image>
                     </TouchableHighlight>
                 </View>
                 <Modal

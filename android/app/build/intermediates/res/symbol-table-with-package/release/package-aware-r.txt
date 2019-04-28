@@ -607,6 +607,7 @@ drawable abc_textfield_search_default_mtrl_alpha
 drawable abc_textfield_search_material
 drawable abc_vector_test
 drawable assets_img_ble_button
+drawable assets_img_ruller
 drawable assets_img_wifi_button
 drawable node_modules_reactnavigationstack_src_views_assets_backicon
 drawable node_modules_reactnavigationstack_src_views_assets_backiconmask
@@ -622,6 +623,13 @@ drawable notification_template_icon_bg
 drawable notification_template_icon_low_bg
 drawable notification_tile_bg
 drawable notify_panel_notification_icon_bg
+drawable oval_marker
+drawable rectangle_marker
+drawable rectangle_marker_left
+drawable rectangle_marker_right
+drawable rectangle_marker_top
+drawable rectangle_marker_top_left
+drawable rectangle_marker_top_right
 drawable redbox_top_border_background
 drawable tooltip_frame_dark
 drawable tooltip_frame_light
@@ -717,11 +725,15 @@ id normal
 id notification_background
 id notification_main_column
 id notification_main_column_container
+id oval_markerContent
+id oval_tvContent
 id parentPanel
 id progress_circular
 id progress_horizontal
 id radio
 id react_test_id
+id rectangle_markerContent
+id rectangle_tvContent
 id right
 id right_icon
 id right_side
@@ -824,6 +836,8 @@ layout notification_template_custom_big
 layout notification_template_icon_group
 layout notification_template_part_chronometer
 layout notification_template_part_time
+layout oval_marker
+layout rectangle_marker
 layout redbox_item_frame
 layout redbox_item_title
 layout redbox_view

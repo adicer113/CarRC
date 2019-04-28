@@ -87,7 +87,8 @@ export function BLEControllerHOC(ControllerComp) {
         console.log('Received data (BLE): '+ this.stringFromArray(data.value));
 
         // parse data
-        let res = data.split("sl");
+        let dataStr = this.stringFromArray(data.value);
+        let res = dataStr.split("sl");
         let smart_lights = parseInt(res[1]);
         res = res[0].split("ac");
         let adapt_cruise_cont = parseInt(res[1]);
