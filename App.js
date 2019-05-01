@@ -1,9 +1,3 @@
-import React, { Component } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
 import { createStackNavigator, createAppContainer } from 'react-navigation'
 import ChooseConnectionScreen from "./Components/ChooseConnectionScreen";
 import BleScanScreen from "./Components/BleScanScreen";
@@ -23,4 +17,3 @@ const AppNavigator = createStackNavigator({
 const App = createAppContainer(AppNavigator);
 
 export default App;
-

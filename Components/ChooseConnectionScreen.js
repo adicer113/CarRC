@@ -16,59 +16,64 @@ import WifiImg from '../assets/img/wifi_button.png';
 
 export default class ChooseConnectionScreen extends Component {
 
+    // nastavenie navigacie
     static navigationOptions = {
         header: null
     }
 
+    // konstruktor
     constructor(props) {
-
         super(props)
         this.state = {
-            ip: "192.168.1.11",
-            IPmodalVisible: false,
-            connecting: false,
+            ip: "192.168.1.11", // IP na ktorú sa budeme pripájať
+            IPmodalVisible: false, // ak je IP modal viditeľný TRUE inak FALSE
+            connecting: false,  // ak prebieha proces pripájania TRUE inak FALSE
         }
     }
 
+    // React lifecycle metoda volana hned po tom ako je komponent nasadeny
     componentDidMount() {
-        Orientation.lockToLandscapeLeft();  // lock orientation
+        Orientation.lockToLandscapeLeft();  // zamknutie orientacie na Landscape left
     }
 
+    // React lifecycle metoda volana pred odstranenim komponentu z DOM
     componentWillUnmount() {
         console.log("CHOOSE_CONNECTION_SCREEN will unmount!");
     }
 
+    // metoda pre nastavenie viditelnosti IPmodalu 
     setIPModalVisibility(visibility) {
-        this.setState({IPmodalVisible: visibility});  
+        this.setState({IPmodalVisible: visibility}); 
     }
 
+    // metoda pre pripojenie zariadenia cez WiFi
     connectThroughWifi() {
         
-        let socketIO = io("http://"+this.state.ip+":9000", {transports: ['websocket']});
-        this.setState({connecting: true});
-        console.log("connecting to http://"+this.state.ip+":9000 ... ");
+        let socketIO = io("http://"+this.state.ip+":9000", {transports: ['websocket']}); // vytvorenie socketu
+        this.setState({connecting: true});  // nastavenie stavu pripajania na TRUE
+        console.log("connecting to http://"+this.state.ip+":9000 ... ");    // kontrolny vypis
 
+        // ked prijde sprava "connection_successful" zo servera
         socketIO.on('connection_successful', () => {
-            this.props.navigation.navigate('WifiController', {socketIO, ip: this.state.ip});
-            this.setState({connecting: false});
+            this.props.navigation.navigate('WifiController', {socketIO, ip: this.state.ip}); // prejdeme na aktivitu WifiController
+            this.setState({connecting: false}); // stav procesu pripajania FALSE (uz sme pripojeny)
         });
 
-        // ak neprijde zo servera potvrdenie pripojenia do 5s.. vypise hlasku "Connection failed"
+        // ak neprijde zo servera potvrdenie uspesneho pripojenia do 5s
         setTimeout(() => {
-
             if(this.state.connecting) {
                 this.setState({connecting: false});
-                socketIO.disconnect();
-                this.refs.toast.show('Connection failed!');
+                socketIO.disconnect();  // odpojenie socketu
+                this.refs.toast.show('Connection failed!'); // vypis hlasky "Connection failed" cez toast
                 console.log("Connection failed!");
             }
-
         }, 5000);
 
-        this.setIPModalVisibility(false);
+        this.setIPModalVisibility(false); // skrytie IPmodalu
 
     }
 
+    // metoda pre vykreslenie komponentu
     render() {
         return (
             <View style={styles.AppContainer}>
@@ -119,6 +124,7 @@ export default class ChooseConnectionScreen extends Component {
 
 }
 
+// styly
 const styles = StyleSheet.create({
     AppContainer: {
         flex: 1,

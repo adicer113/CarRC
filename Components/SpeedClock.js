@@ -3,12 +3,14 @@ import Svg,{Path, Text as SvgText} from 'react-native-svg';
 
 export default class SpeedClock extends Component {
 
+    // konstruktor
     constructor(props) {
         super(props);
-        this.maxDgrs = 240;
-        this.DgrSpd = this.maxDgrs / this.props.maxSpeed;
+        this.maxDgrs = 240; // maximalny rozsah natocenia
+        this.DgrSpd = this.maxDgrs / this.props.maxSpeed;   // pocet stupnov na rychlost
     }
     
+    // metoda na vykreslenie
     render() {
         return (
             <Svg height="150" width="160">

@@ -3,12 +3,14 @@ import Svg,{Path} from 'react-native-svg';
 
 export default class WheelRotation extends Component {
 
+    // konstruktor
     constructor(props) {
         super(props);
-        this.minRot = -60;
-        this.maxRot = 60;
+        this.minRot = -60;  // minimalne natocenie
+        this.maxRot = 60;   // maximalne natocenie
     }
 
+    // metoda na vykreslenie
     render() {
         return (
             <Svg height="90" width="90">
