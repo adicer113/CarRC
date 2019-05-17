@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Fri Apr 05 17:25:48 CEST 2019
+#Wed May 08 16:19:48 CEST 2019
 5.base=D\:\\ine\\workspace\\carrc\\android\\app\\build\\intermediates\\transforms\\mergeJniLibs\\release\\0
 42.base=D\:\\ine\\workspace\\carrc\\android\\app\\build\\intermediates\\transforms\\mergeJniLibs\\release\\0
 22.path=lib/x86/libc++_shared.so

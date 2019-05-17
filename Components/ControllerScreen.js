@@ -10,7 +10,7 @@ import {
   NativeEventEmitter,
   NativeModules
 } from 'react-native';
-import { accelerometer, gyroscope , setUpdateIntervalForType, SensorTypes } from "react-native-sensors";
+import { accelerometer, setUpdateIntervalForType, SensorTypes } from "react-native-sensors";
 import Orientation from 'react-native-orientation-locker';
 import {LineChart} from 'react-native-charts-wrapper';
 import SpeedClock from './SpeedClock';
@@ -57,14 +57,14 @@ export default class ControllerScreen extends Component {
     componentDidMount() {
         Orientation.lockToLandscapeLeft();      // zamknutie orientacie na Landscape left
         this.props.getData(this.setStateFunc);  // spustenie funkcie pre prijimanie dat zo servera 
-        this.getGyroscopeData();                // spustenie ziskavania dat z gyroskopu
+        this.getAccelerometerData();            // spustenie ziskavania dat z akcelerometra
         this.graphUpdateInterval = setInterval(this.updateGraph, 1000); // nastavenie intervalu aktualizacie grafu rychlosti
     }
 
     // React lifecycle metoda volana pred odstranenim komponentu z DOM
     componentWillUnmount() {
         console.log("CONTROLLER_SCREEN will unmount!");
-        this.subscription.unsubscribe();            // ukoncenie ziskavania dat z gyroskopu
+        this.subscription.unsubscribe();            // ukoncenie ziskavania dat z akcelerometra
         clearInterval(this.graphUpdateInterval);    // ukoncienie aktualizacii grafu rychlosti
     }
 
@@ -91,13 +91,12 @@ export default class ControllerScreen extends Component {
         this.setState(newState);
     }
 
-    // metoda pre ziskanie dat z gyroskopu
-    getGyroscopeData() {
+    // metoda pre ziskanie dat z akcelerometra
+    getAccelerometerData() {
         
-        // poznamka: v tejto kniznici to maju pod oznacenim "accelerometer" ale maju to vymenene v skutocnosti dostavame data z gyroskopu !!!
-        setUpdateIntervalForType(SensorTypes.accelerometer, this.props.sendDataInterval); // nastavenie intervalov ziskavania hodnot z gyroscopu
+        setUpdateIntervalForType(SensorTypes.accelerometer, this.props.sendDataInterval); // nastavenie intervalov ziskavania hodnot z akcelerometra
         
-        // ziskavanie dat z gyroskopu
+        // ziskavanie dat z akcelerometra
         this.subscription = accelerometer.subscribe(({ x, y, z, timestamp }) => {
             this.setWheelRotation(y);   // nastavenie zatocenia kolies podla natocenia smartfonu
             // volanie funkcie na odosielanie dat na server
@@ -122,20 +121,20 @@ export default class ControllerScreen extends Component {
     }
 
     // metoda pre zmenu pozadovaneho natocenia kolies
-    setWheelRotation = (gyrVal) => {
+    setWheelRotation = (accVal) => {
 
         // natocenie kolies mozme ovladat iba ak nie je zapnuta funkcia lane assistant
         if(!this.state.real_lane_assist) {
             
-            let val = gyrVal;
+            let val = accVal;
 
             // rozsah natocenia -8 az 8
-            if(gyrVal < -8)
+            if(accVal < -8)
                 val = -8;        
-            else if(gyrVal > 8)
+            else if(accVal > 8)
                 val = 8;
 
-            let newWhRot = ((val+8)*(100/16)); // hodnota z gyroscopu do percent (0-100)
+            let newWhRot = ((val+8)*(100/16)); // hodnota z akcelerometra do percent (0-100)
             this.setState({wheelRot: Math.round((newWhRot * 100) / 100)});  // nastavenie pozadovaneho zatocenia kolies
         }
 
@@ -225,7 +224,13 @@ export default class ControllerScreen extends Component {
             return (<Text style={{color: 'white', fontSize: 25}}> NOT SUPPORTED IN BLE MODE </Text>);
 
         // vykreslenie WebView s adresou kde je live stream z kamery
-        return (<WebView source={{uri: 'https://'+this.props.ip+':8081'}} style={{flex: 1}}/>);
+        return (<WebView 
+                    source={{uri: "http://"+this.props.ip+":8081"}} 
+                    style={{flex: 1}}
+                    javaScriptEnabled={true}
+                    domStorageEnabled={true}
+                    startInLoadingState={true}
+                />);
 
     }
 

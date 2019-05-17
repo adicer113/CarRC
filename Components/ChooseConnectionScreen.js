@@ -51,7 +51,7 @@ export default class ChooseConnectionScreen extends Component {
         
         let socketIO = io("http://"+this.state.ip+":9000", {transports: ['websocket']}); // vytvorenie socketu
         this.setState({connecting: true});  // nastavenie stavu pripajania na TRUE
-        console.log("connecting to http://"+this.state.ip+":9000 ... ");    // kontrolny vypis
+        console.log("connecting to http://"+this.state.ip+":9000 ...");    // kontrolny vypis
 
         // ked prijde sprava "connection_successful" zo servera
         socketIO.on('connection_successful', () => {
